@@ -17,7 +17,6 @@ public interface StaffDao {
     List<Staff> getAllStaff();
 
     // Update
-    void update(Staff student);
 
     // Delete
 

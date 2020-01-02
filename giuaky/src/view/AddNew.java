@@ -3,7 +3,6 @@ package view;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseMotionAdapter;
 
 public class AddNew {
     private JPanel panel;
@@ -19,23 +18,41 @@ public class AddNew {
         maleRadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-            if("disable".equals(e.getActionCommand()))
+            if(maleRadioButton.isSelected())
             {
                 maleRadioButton.setEnabled(true);
                 femaleRadioButton.setEnabled(false);
+            }
+            else
+            {
+                maleRadioButton.setEnabled(false);
+                femaleRadioButton.setEnabled(true);
             }
             }
         });
         femaleRadioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if("disable".equals(e.getActionCommand()))
+                if(femaleRadioButton.isSelected())
                 {
                     maleRadioButton.setEnabled(false);
                     femaleRadioButton.setEnabled(true);
                 }
+                else
+                {
+                    maleRadioButton.setEnabled(true);
+                    femaleRadioButton.setEnabled(false);
+                }
             }
         });
+    }
+
+    public JRadioButton getFemaleRadioButton() {
+        return femaleRadioButton;
+    }
+
+    public JRadioButton getMaleRadioButton() {
+        return maleRadioButton;
     }
 
     public JPanel getRootpanel() {
@@ -46,6 +63,10 @@ public class AddNew {
         return Name.getText();
     }
 
+    public void setName(JTextField name) {
+        Name = name;
+    }
+
     public String getGender() {
         if(maleRadioButton.isSelected())
         {
@@ -54,10 +75,13 @@ public class AddNew {
         else{
             gender = femaleRadioButton.getText();
         }
-       return gender;
+        return getGender();
     }
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public void setName(String fullName) {
     }
 }

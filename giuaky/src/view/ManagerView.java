@@ -28,8 +28,6 @@ public class ManagerView extends JFrame  implements TableObserver {
 
     public ManagerView(StaffsModel model)
     {
-        this.model = model;
-        this.model.registerObserver(this);
 
         setTitle("Staff Manager");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -38,9 +36,13 @@ public class ManagerView extends JFrame  implements TableObserver {
         pack();
         setVisible(true);
 
-        staffTabModel = new StaffTabModel();
-        table.setModel(staffTabModel);
+        this.model = model;
 
+        StaffTabModel modelTable = new StaffTabModel(model.getAllStaff());
+
+        model.registerObserver(modelTable);
+
+        table.setModel(modelTable);
 
         ADDButton.addActionListener(new ActionListener() {
             @Override
@@ -48,8 +50,6 @@ public class ManagerView extends JFrame  implements TableObserver {
                onAddStaff(e);
             }
         });
-
-
 
         DELButton.addActionListener(new ActionListener() {
             @Override
@@ -62,8 +62,7 @@ public class ManagerView extends JFrame  implements TableObserver {
                 }
             }
         });
-        List<Staff> staff = this.model.getAllStaff();
-        staffTabModel.updateStaff(staff);
+
     }
 
 
@@ -79,7 +78,7 @@ public class ManagerView extends JFrame  implements TableObserver {
     }
     @Override
     public void updateTable(List<Staff> staff) {
-            staffTabModel.updateStaff(staff);
+            staffTabModel.updateTable(staff);
     }
 
     public JTable getTable() {

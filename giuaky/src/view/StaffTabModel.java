@@ -1,12 +1,13 @@
 package view;
 
 import model.Staff;
+import model.TableObserver;
 
 import javax.swing.table.AbstractTableModel;
 import java.util.List;
 import java.util.Vector;
 
-public class StaffTabModel extends AbstractTableModel {
+public class StaffTabModel extends AbstractTableModel implements TableObserver {
 
      List<Staff> staffList = new Vector<>();
 
@@ -14,6 +15,10 @@ public class StaffTabModel extends AbstractTableModel {
     private static final int ID = 0;
     private static final int FULL_NAME = 1;
     private static final int GEN_DER =2;
+
+    public StaffTabModel(List<Staff> allStaff) {
+        this.staffList = allStaff;
+    }
 
     @Override
     public int getRowCount() {
@@ -43,8 +48,9 @@ public class StaffTabModel extends AbstractTableModel {
         }
         return null;
     }
-    public void updateStaff(List<Staff> staff) {
 
+    @Override
+    public void updateTable(List<Staff> staff) {
         this.staffList.clear();
         this.staffList.addAll(staff);
         fireTableDataChanged();

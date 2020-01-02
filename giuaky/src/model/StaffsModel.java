@@ -1,5 +1,7 @@
 package model;
 
+import view.StaffTabModel;
+
 import java.util.List;
 
 public interface StaffsModel {
@@ -12,7 +14,14 @@ public interface StaffsModel {
 
     void registerObserver(TableObserver observer);
 
+
+
+
     void unregisterObserver(TableObserver observer);
 
-    void registerObserver();
+
+
+    void NotifyStaff();
+
+
 }

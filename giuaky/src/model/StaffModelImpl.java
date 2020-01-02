@@ -1,5 +1,7 @@
 package model;
 
+import view.StaffTabModel;
+
 import java.util.List;
 import java.util.Vector;
 
@@ -17,7 +19,7 @@ public class StaffModelImpl implements StaffsModel {
     public void addStaff(Staff staff) {
         StaffDao dao = new StaffDaoImpl();
         dao.insertStaff(staff);
-        notifyObservers();
+         NotifyStaff();
     }
 
     @Override
@@ -28,25 +30,21 @@ public class StaffModelImpl implements StaffsModel {
     }
 
     @Override
+    public void unregisterObserver(TableObserver observer) {
+        tableObservers.remove(observer);
+    }
+
+
+    @Override
     public void registerObserver(TableObserver observer) {
         if (!tableObservers.contains(observer))
             tableObservers.add(observer);
     }
 
     @Override
-    public void unregisterObserver(TableObserver observer) {
-        tableObservers.remove(observer);
-    }
-
-    @Override
-    public void registerObserver() {
-
-    }
-
-    private void notifyObservers() {
-        List<Staff> allStaff = getAllStaff();
-        for (TableObserver observer: tableObservers) {
-            observer.updateTable(allStaff);
+    public void NotifyStaff() {
+        for (TableObserver tableObserver: tableObservers){
+            tableObserver.updateTable( getAllStaff());
         }
     }
 }

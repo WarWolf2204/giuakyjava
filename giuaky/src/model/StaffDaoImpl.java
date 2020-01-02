@@ -31,7 +31,7 @@ public class StaffDaoImpl implements StaffDao {
     }
 
     @Override
-    public void insertStaff(Staff student) {
+    public void insertStaff(Staff staff) {
 
         Database db = new Database();
         final String SQL_CREATE_STUDENT = "INSERT INTO StaffTable(FullName,Gender)" +
@@ -39,14 +39,14 @@ public class StaffDaoImpl implements StaffDao {
 
         try {
             PreparedStatement ps = db.getConnection().prepareStatement(SQL_CREATE_STUDENT, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, student.getFullName());
-            ps.setString(2,student.getGender());
+            ps.setString(1, staff.getFullName());
+            ps.setString(2,staff.getGender());
             ps.executeUpdate();
 
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 int id = rs.getInt(1);
-                student.setId(id);
+                staff.setId(id);
                 System.out.println("Inserted id: " + id);
             }
         } catch (SQLException e) {
@@ -114,9 +114,6 @@ public class StaffDaoImpl implements StaffDao {
         return staffList;
     }
 
-    @Override
-    public void update(Staff staff) {
-    }
 
 
     @Override
