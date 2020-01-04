@@ -75,7 +75,7 @@ public class AddNew {
         else{
             gender = femaleRadioButton.getText();
         }
-        return getGender();
+        return gender;
     }
 
     public void setGender(String gender) {
